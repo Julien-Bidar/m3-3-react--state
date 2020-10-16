@@ -4,9 +4,12 @@ import LetterKey from "./LetterKey";
 
 import { colors, contentWidth } from "./GlobalStyles";
 
-const Keyboard = ({}) => (
+const Keyboard = ({usedLetters, handleGuess}) => (
   <Wrapper>
-    <LetterKey />
+    <LetterKey 
+      usedLetters = {usedLetters}
+      handleGuess = {handleGuess}
+      />
   </Wrapper>
 );
 
