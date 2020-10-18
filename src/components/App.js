@@ -9,6 +9,7 @@ import TheWord from "./TheWord";
 import Keyboard from "./Keyboard";
 import GameOverModal from "./GameOverModal";
 import words from "../data/words.json";
+import bodyParts from "../data/body-parts.json";
 
 import { colors, contentWidth } from "./GlobalStyles";
 
@@ -60,12 +61,16 @@ const App = () => {
     startBtnDisp = "start";
   }
 
+  const showBodyPart = (part, color) => {
+    document.querySelector(`.${part}`).style.stroke = color;
+  };
+
   const handleGuess = (ltr) => {
     let l = ltr.target.innerText;
-    console.log(l);
+
     setUsedLetters([...usedLetters, l]);
     let characArray = word.str.split("");
-    console.log(characArray, characArray.includes(l));
+    //console.log(characArray, characArray.includes(l));
     if (characArray.includes(l)) {
       let revealed = word.revealed;
       characArray.forEach((charac, index) => {
@@ -77,10 +82,10 @@ const App = () => {
       setWord({ ...word, revealed: revealed });
     } else {
       setWrongGuesses([...wrongGuesses, `${l} `]);
+      showBodyPart(bodyParts[wrongGuesses.length], colors.yellow);
     }
-    console.log(wrongGuesses.length);
-    console.log(word.revealed);
-    if (wrongGuesses.length >= 8 || word.revealed.indexOf("") === -1) {
+
+    if (wrongGuesses.length > 9 || word.revealed.indexOf("") === -1) {
       setGame({ ...game, over: true });
       // handleEndGame();
       // handleReset();
@@ -92,6 +97,9 @@ const App = () => {
     getNewWord();
     setWrongGuesses([]);
     setUsedLetters([]);
+    bodyParts.forEach((part) => {
+      showBodyPart(part, "transparent");
+    });
   };
 
   return (

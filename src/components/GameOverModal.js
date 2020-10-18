@@ -5,7 +5,7 @@ import { colors } from "./GlobalStyles";
 
 const GameOverModal = ({ handleReset, word, wrongGuesses }) => {
   let win;
-  if (wrongGuesses.length >= 8) {
+  if (wrongGuesses.length > 9) {
     win = false;
   } else if (word.revealed.indexOf("") === -1) {
     win = true;
