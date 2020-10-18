@@ -3,13 +3,20 @@ import styled from "styled-components";
 import Button from "./Button";
 import { colors } from "./GlobalStyles";
 
-const GameOverModal = ({}) => {
+const GameOverModal = ({ handleReset, word, wrongGuesses }) => {
+  let win;
+  if (wrongGuesses.length >= 8) {
+    win = false;
+  } else if (word.revealed.indexOf("") === -1) {
+    win = true;
+  }
+
   return (
     <Wrapper>
       <Content>
-        <Heading>You ___ !!🤩😱</Heading>
-        <Word>👉 the word 👈</Word>
-        <Button>btn 3</Button>
+        <Heading>You {win ? "win 🤩" : "lose 😱"} !!</Heading>
+        <Word>👉 {word.str} 👈</Word>
+        <Button onClickFunc={() => handleReset()}>New Game</Button>
       </Content>
     </Wrapper>
   );
